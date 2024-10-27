@@ -44,7 +44,7 @@ export interface Inputs {
 
 export const protect = async () => {
   try {
-    const response = await axios.get("http://localhost:9115/dashboard", {
+    const response = await axios.get("https://nexus-management.onrender.com/dashboard", {
       withCredentials: true, // Send cookie with the request
     });
 
@@ -66,7 +66,7 @@ export const protect = async () => {
 
 export const changePassword = async (credentials: StaffPassword) => {
   const response = await axios.post(
-    "http://localhost:9115/staff/activate",
+    "https://nexus-management.onrender.com/staff/activate",
     credentials,
     { withCredentials: true }
   );
@@ -79,7 +79,7 @@ export const loginStaff = async (
 ): Promise<LoginResponse> => {
   // Expecting LoginResponse from the server
   const response = await axios.post(
-    "http://localhost:9115/staff/login",
+    "https://nexus-management.onrender.com/staff/login",
     credentials, // Passing the credentials to the API
     { withCredentials: true } // Ensure cookies are sent
   );
@@ -102,7 +102,7 @@ export const fetchStaff = async (currentPage: number): Promise<Staff[]> => {
   }
 };
 export const fetchUser = async () => {
-  const response = await axios.get("http://localhost:9115/staff/profile", {
+  const response = await axios.get("https://nexus-management.onrender.com/staff/profile", {
     withCredentials: true,
   });
   return response.data.staff;
@@ -111,7 +111,7 @@ export const fetchUser = async () => {
 // Add new staff
 export const addStaff = async (newStaff: Staff): Promise<Inputs[]> => {
   const response = await axios.post(
-    "http://localhost:9115/staff/add",
+    "https://nexus-management.onrender.com/staff/add",
     newStaff,
     {
       withCredentials: true,
@@ -123,7 +123,7 @@ export const addStaff = async (newStaff: Staff): Promise<Inputs[]> => {
 // Edit existing staff
 export const editStaff = async (updatedStaff: Staff) => {
   const response = await axios.put(
-    `http://localhost:9115/staff/update/`,
+    `https://nexus-management.onrender.com/staff/update/`,
     updatedStaff,
     {
       withCredentials: true,
@@ -136,7 +136,7 @@ export const editAdmin = async (userId: string, updatedStaff: Staff) => {
   console.log("Sending Data:", userId, updatedStaff); // Log the data before sending
   try {
     const response = await axios.put(
-      `http://localhost:9115/staff/master-update/${userId}`,
+      `https://nexus-management.onrender.com/staff/master-update/${userId}`,
       updatedStaff,
       {
         withCredentials: true,
@@ -168,7 +168,7 @@ export const updateStaffPicture = async (
     formData.append("picture", picture);
     console.log(formData.get("picture"));
     const response = await axios.post(
-      `http://localhost:9115/staff/pic-upload`,
+      `https://nexus-management.onrender.com/staff/pic-upload`,
       formData,
       {
         withCredentials: true,
@@ -196,7 +196,7 @@ export const updateStaffPicture = async (
 export const deleteStaffPicture = async (pic: string): Promise<any> => {
   try {
     const response = await axios.delete(
-      `http://localhost:9115/staff/pic-delete`,
+      `https://nexus-management.onrender.com/staff/pic-delete`,
       {
         data: { pic },
         withCredentials: true,
@@ -212,7 +212,7 @@ export const deleteStaffPicture = async (pic: string): Promise<any> => {
 // Delete a staff member
 export const deleteStaff = async (staffId: string) => {
   const response = await axios.delete(
-    `http://localhost:9115/staff/delete/${staffId}`,
+    `https://nexus-management.onrender.com/staff/delete/${staffId}`,
     {
       withCredentials: true,
     }
@@ -223,7 +223,7 @@ export const deleteStaff = async (staffId: string) => {
 // Fetch one staff member
 export const fetchOneStaff = async (staffId: string): Promise<Staff[]> => {
   const response = await axios.get(
-    `http://localhost:9115/staff/one/${staffId}`,
+    `https://nexus-management.onrender.com/staff/one/${staffId}`,
     {
       withCredentials: true,
     }
@@ -235,7 +235,7 @@ export const fetchOneStaff = async (staffId: string): Promise<Staff[]> => {
 
 export const logoutStaff = async () => {
   const response = await axios.post(
-    "http://localhost:9115/staff/logout",
+    "https://nexus-management.onrender.com/staff/logout",
     {}, // Empty body if no data is being sent
     {
       withCredentials: true, // This goes in the config object, not the request body
@@ -248,7 +248,7 @@ export const logoutStaff = async () => {
 
 export const filterStaff = async (staffFilters: StaffFilters, page: number) => {
   try {
-    const url = new URL("http://localhost:9115/staff/all/filter");
+    const url = new URL("https://nexus-management.onrender.com/staff/all/filter");
 
     url.searchParams.set("page", String(page));
     Object.entries(staffFilters).forEach(([key, value]) => {
