@@ -52,7 +52,7 @@ export interface FilteredBookingsResponse {
 export const addBooking = async (id, booking: AddBooking) => {
   try {
     const response = await axios.post(
-      `http://localhost:9115/booking/book_room/${id}`,
+      `https://nexus-management.onrender.com/booking/book_room/${id}`,
       booking,
       {
         withCredentials: true, // Send cookie with the request
@@ -67,9 +67,12 @@ export const addBooking = async (id, booking: AddBooking) => {
 
 export const getBookings = async () => {
   try {
-    const response = await axios.get(`http://localhost:9115/booking/getall`, {
-      withCredentials: true,
-    });
+    const response = await axios.get(
+      `https://nexus-management.onrender.com/booking/getall`,
+      {
+        withCredentials: true,
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("Error getting bookings", error);
@@ -80,7 +83,7 @@ export const getBookings = async () => {
 export const getBookingsDashboard = async () => {
   try {
     const response = await axios.get(
-      `http://localhost:9115/booking/getall/home`,
+      `https://nexus-management.onrender.com/booking/getall/home`,
       {
         withCredentials: true,
       }
@@ -95,7 +98,7 @@ export const getBookingsDashboard = async () => {
 export const deleteBooking = async (id) => {
   try {
     const response = await axios.delete(
-      `http://localhost:9115/booking/delete/${id}`,
+      `https://nexus-management.onrender.com/booking/delete/${id}`,
       {
         withCredentials: true,
       }
@@ -111,7 +114,9 @@ export const deleteBooking = async (id) => {
 
 export const filterBookings = async (filters, page: number) => {
   try {
-    const url = new URL("http://localhost:9115/booking/getall/filter");
+    const url = new URL(
+      "https://nexus-management.onrender.com/booking/getall/filter"
+    );
 
     url.searchParams.set("page", String(page));
     Object.entries(filters).forEach(([key, value]) => {
@@ -150,7 +155,7 @@ export const filterBookings = async (filters, page: number) => {
 export const confirmBooking = async (id) => {
   try {
     const response = await axios.get(
-      `http://localhost:9115/booking/checked_in/${id}`,
+      `https://nexus-management.onrender.com/booking/checked_in/${id}`,
       {
         withCredentials: true,
       }
