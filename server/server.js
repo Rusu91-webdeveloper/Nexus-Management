@@ -23,6 +23,7 @@ import { email_sender } from "./HelperFNs/nodemailer.js";
 import review_router from "./Routes/Review.Router.js";
 
 const app = express();
+const PORT = process.env.PORT || 9115;
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
