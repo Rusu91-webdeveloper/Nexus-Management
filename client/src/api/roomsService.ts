@@ -73,7 +73,7 @@ export const getRooms = async (currentPage: number): Promise<any> => {
 // Add a new ROOM
 export const addRoom = async (room: RoomInputs): Promise<RoomInputs[]> => {
   try {
-    const response = await axios.post("http://localhost:9115/room/add", room, {
+    const response = await axios.post("https://nexus-management.onrender.com/room/add", room, {
       withCredentials: true, // Send cookie with the request
     });
     return response.data;
@@ -90,7 +90,7 @@ export const updateRoom = async (
 ): Promise<RoomUpdate> => {
   try {
     const response = await axios.put(
-      `http://localhost:9115/room/update/${id}`,
+      `https://nexus-management.onrender.com/room/update/${id}`,
       input,
       {
         withCredentials: true,
@@ -117,7 +117,7 @@ export const updatePictures = async (
     }
 
     const response = await axios.post(
-      `http://localhost:9115/room/pic-upload/${id}`,
+      `https://nexus-management.onrender.com/room/pic-upload/${id}`,
       formData,
       {
         withCredentials: true,
@@ -141,7 +141,7 @@ export const deletePictures = async (
 ): Promise<any> => {
   try {
     const response = await axios.delete(
-      `http://localhost:9115/room/pic-delete/${id}`,
+      `https://nexus-management.onrender.com/room/pic-delete/${id}`,
       {
         data: { pictures },
         withCredentials: true,
@@ -158,7 +158,7 @@ export const deletePictures = async (
 export const deleteRoom = async (id: string) => {
   try {
     const response = await axios.delete(
-      `http://localhost:9115/room/delete/${id}`,
+      `https://nexus-management.onrender.com/room/delete/${id}`,
       {
         withCredentials: true,
       }
@@ -173,7 +173,7 @@ export const deleteRoom = async (id: string) => {
 // Fetch a specific room
 export const fetchOneRoom = async (id: string) => {
   try {
-    const response = await axios.get(`http://localhost:9115/room/one/${id}`, {
+    const response = await axios.get(`https://nexus-management.onrender.com/room/one/${id}`, {
       withCredentials: true,
     });
     return response.data;
@@ -188,7 +188,7 @@ export const fetchOneRoom = async (id: string) => {
 export const checkAvailableRooms = async (input) => {
   try {
     const response = await axios.post(
-      `http://localhost:9115/room/check-rooms`,
+      `https://nexus-management.onrender.com/room/check-rooms`,
       input,
       {
         withCredentials: true,
@@ -205,7 +205,7 @@ export const checkAvailableRooms = async (input) => {
 
 export const filterRooms = async (filters, page: number) => {
   try {
-    const url = new URL("http://localhost:9115/room/all/filter");
+    const url = new URL("https://nexus-management.onrender.com/room/all/filter");
 
     url.searchParams.set("page", String(page));
     Object.entries(filters).forEach(([key, value]) => {
