@@ -44,9 +44,12 @@ export interface Inputs {
 
 export const protect = async () => {
   try {
-    const response = await axios.get("https://nexus-management.onrender.com/dashboard", {
-      withCredentials: true, // Send cookie with the request
-    });
+    const response = await axios.get(
+      "https://nexus-management.onrender.com/dashboard",
+      {
+        withCredentials: true, // Send cookie with the request
+      }
+    );
 
     return response.data;
   } catch (error) {
@@ -89,7 +92,7 @@ export const loginStaff = async (
 // Fetch all staff members
 export const fetchStaff = async (currentPage: number): Promise<Staff[]> => {
   try {
-    const url = new URL("http://localhost:9115/staff/all");
+    const url = new URL("https://nexus-management.onrender.com/staff/all");
     url.searchParams.set("page", String(currentPage + 1));
 
     const response = await axios.get(url.toString(), {
@@ -102,9 +105,12 @@ export const fetchStaff = async (currentPage: number): Promise<Staff[]> => {
   }
 };
 export const fetchUser = async () => {
-  const response = await axios.get("https://nexus-management.onrender.com/staff/profile", {
-    withCredentials: true,
-  });
+  const response = await axios.get(
+    "https://nexus-management.onrender.com/staff/profile",
+    {
+      withCredentials: true,
+    }
+  );
   return response.data.staff;
 };
 
@@ -248,7 +254,9 @@ export const logoutStaff = async () => {
 
 export const filterStaff = async (staffFilters: StaffFilters, page: number) => {
   try {
-    const url = new URL("https://nexus-management.onrender.com/staff/all/filter");
+    const url = new URL(
+      "https://nexus-management.onrender.com/staff/all/filter"
+    );
 
     url.searchParams.set("page", String(page));
     Object.entries(staffFilters).forEach(([key, value]) => {

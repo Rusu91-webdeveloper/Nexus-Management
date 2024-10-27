@@ -56,7 +56,7 @@ export interface RoomPictureUpdate {
 // Get all Rooms
 export const getRooms = async (currentPage: number): Promise<any> => {
   try {
-    const url = new URL("http://localhost:9115/room/all");
+    const url = new URL("https://nexus-management.onrender.com/room/all");
 
     url.searchParams.set("page", String(currentPage + 1));
     const response = await axios.get(url, {
@@ -73,9 +73,13 @@ export const getRooms = async (currentPage: number): Promise<any> => {
 // Add a new ROOM
 export const addRoom = async (room: RoomInputs): Promise<RoomInputs[]> => {
   try {
-    const response = await axios.post("https://nexus-management.onrender.com/room/add", room, {
-      withCredentials: true, // Send cookie with the request
-    });
+    const response = await axios.post(
+      "https://nexus-management.onrender.com/room/add",
+      room,
+      {
+        withCredentials: true, // Send cookie with the request
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("Error adding Room", error);
@@ -173,9 +177,12 @@ export const deleteRoom = async (id: string) => {
 // Fetch a specific room
 export const fetchOneRoom = async (id: string) => {
   try {
-    const response = await axios.get(`https://nexus-management.onrender.com/room/one/${id}`, {
-      withCredentials: true,
-    });
+    const response = await axios.get(
+      `https://nexus-management.onrender.com/room/one/${id}`,
+      {
+        withCredentials: true,
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("Error Fetch room", error);
@@ -205,7 +212,9 @@ export const checkAvailableRooms = async (input) => {
 
 export const filterRooms = async (filters, page: number) => {
   try {
-    const url = new URL("https://nexus-management.onrender.com/room/all/filter");
+    const url = new URL(
+      "https://nexus-management.onrender.com/room/all/filter"
+    );
 
     url.searchParams.set("page", String(page));
     Object.entries(filters).forEach(([key, value]) => {
