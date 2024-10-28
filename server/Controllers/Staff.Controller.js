@@ -231,12 +231,19 @@ export const login = async (req, res, next) => {
       // Set token in an HTTP-only cookie
       res
         .cookie("token", token, {
-          expires: new Date(Date.now() + 3_600_000 * 10), // 10 hours
+          expires: new Date(Date.now() + 3_600_000 * 10),
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production", // Only set in production
+          sameSite: "strict", // Protect against CSRF
         })
         .status(200)
         .json({ msg: `Your are logged in as :${staff.role}`, staff });
     }
   } catch (error) {
+    console.error("Login error:", error);
+    res
+      .status(500)
+      .json({ msg: "An error occurred during login. Please try again." });
     next(error);
   }
 };
