@@ -44,34 +44,9 @@ export const isAdmin = async (req, res, next) => {
   }
 };
 
-// export const isStaff = async (req, res, next) => {
-//   try {
-//     const { token } = req.cookies; // Extract the token from cookies
-
-//     if (!token) {
-//       return res
-//         .status(401)
-//         .json({ msg: "Authentication required: No token provided" });
-//     }
-
-//     // Verify the token using jsonwebtoken
-//     const user = jwt.verify(token, process.env.JWT_SECRET);
-
-//     if (!user) {
-//       return res.status(403).json({ msg: "Access denied: Unauthorized" });
-//     }
-
-//     req.user = user; // Attach the decoded user data to the request object
-//     next(); // Proceed to the next middleware or route handler
-//   } catch (error) {
-//     console.error("JWT verification failed:", error); // Log the error for debugging
-//     return res.status(500).json({ msg: "Server error", error: error.message });
-//   }
-// };
-
-const isStaff = async (req, res, next) => {
+export const isStaff = async (req, res, next) => {
   try {
-    const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
+    const { token } = req.cookies; // Extract the token from cookies
 
     if (!token) {
       return res
@@ -79,17 +54,18 @@ const isStaff = async (req, res, next) => {
         .json({ msg: "Authentication required: No token provided" });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
-    next();
-  } catch (error) {
-    console.error("JWT verification failed:", error);
-    if (error.name === "TokenExpiredError") {
-      return res
-        .status(401)
-        .json({ msg: "Token expired, please log in again" });
+    // Verify the token using jsonwebtoken
+    const user = jwt.verify(token, process.env.JWT_SECRET);
+
+    if (!user) {
+      return res.status(403).json({ msg: "Access denied: Unauthorized" });
     }
-    return res.status(403).json({ msg: "Access denied: Invalid token" });
+
+    req.user = user; // Attach the decoded user data to the request object
+    next(); // Proceed to the next middleware or route handler
+  } catch (error) {
+    console.error("JWT verification failed:", error); // Log the error for debugging
+    return res.status(500).json({ msg: "Server error", error: error.message });
   }
 };
 
