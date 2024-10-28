@@ -1,7 +1,6 @@
 import { Staff } from "../Models/Staff.Model.js";
 import { createToken } from "../HelperFNs/Helper.Alaa.js";
 
-
 // Controllers for admin only
 
 // 1- Adding staff member
@@ -210,43 +209,40 @@ export const update = async (req, res, next) => {
   }
 };
 
- export const login = async (req, res, next) => {
-   try {
-      staff is coming from MW login_helper
+export const login = async (req, res, next) => {
+  try {
+    // staff is coming from MW login_helper
     const staff = req.user;
-     if (!staff.activated) {
-       res.status(426).json({
-         msg: `Hello ${staff.username}, you have to change your password on the first login to activate your account and be able to continue`,
-       });
-     } else {
-       // Generate JWT Token
-       const token = await createToken(
-         {
-           uid: staff._id,
-           username: staff.username,
-           role: staff.role,
-         },
-         process.env.JWT_SECRET,
-         { expiresIn: "10h" } // Token expiration time
-       );
-       // Set token in an HTTP-only cookie
-       res
-         .cookie("token", token, {
-           expires: new Date(Date.now() + 3_600_000 * 10),
-           httpOnly: true,
-           secure: process.env.NODE_ENV === "production", // Only set in production
-           sameSite: "strict", // Protect against CSRF
-         })
-         .status(200)         .json({ msg: `Your are logged in as :${staff.role}`, staff });
-     }
-   } catch (error) {
-     console.error("Login error:", error);
-     res
-      .status(500)
-       .json({ msg: "An error occurred during login. Please try again." });
-     next(error);
-   }
- };
+    if (!staff.activated) {
+      res.status(426).json({
+        msg: `Hello ${staff.username}, you have to change your password on the first login to activate your account and be able to continue`,
+      });
+    } else {
+      // Generate JWT Token
+      const token = await createToken(
+        {
+          uid: staff._id,
+          username: staff.username,
+          role: staff.role,
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: "10h" } // Token expiration time
+      );
+      // Set token in an HTTP-only cookie
+      res
+        .cookie("token", token, {
+          expires: new Date(Date.now() + 3_600_000 * 10),
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production", // Only set in production
+          sameSite: "strict", // Protect against CSRF
+        })
+        .status(200)
+        .json({ msg: `Your are logged in as :${staff.role}`, staff });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const user_logout = async (req, res, next) => {
   try {
