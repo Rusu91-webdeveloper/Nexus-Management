@@ -1,7 +1,6 @@
 import { Staff } from "../Models/Staff.Model.js";
 import { createToken } from "../HelperFNs/Helper.Alaa.js";
-import rateLimit from "express-rate-limit";
-import { jwt } from "jsonwebtoken";
+
 
 // Controllers for admin only
 
@@ -211,112 +210,43 @@ export const update = async (req, res, next) => {
   }
 };
 
-// export const login = async (req, res, next) => {
-//   try {
-//     // staff is coming from MW login_helper
-//     const staff = req.user;
-//     if (!staff.activated) {
-//       res.status(426).json({
-//         msg: `Hello ${staff.username}, you have to change your password on the first login to activate your account and be able to continue`,
-//       });
-//     } else {
-//       // Generate JWT Token
-//       const token = await createToken(
-//         {
-//           uid: staff._id,
-//           username: staff.username,
-//           role: staff.role,
-//         },
-//         process.env.JWT_SECRET,
-//         { expiresIn: "10h" } // Token expiration time
-//       );
-//       // Set token in an HTTP-only cookie
-//       res
-//         .cookie("token", token, {
-//           expires: new Date(Date.now() + 3_600_000 * 10),
-//           httpOnly: true,
-//           secure: process.env.NODE_ENV === "production", // Only set in production
-//           sameSite: "strict", // Protect against CSRF
-//         })
-//         .status(200)
-//         .json({ msg: `Your are logged in as :${staff.role}`, staff });
-//     }
-//   } catch (error) {
-//     console.error("Login error:", error);
-//     res
-//       .status(500)
-//       .json({ msg: "An error occurred during login. Please try again." });
-//     next(error);
-//   }
-// };
-
-const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // limit each IP to 5 requests per windowMs
-  message: "Too many login attempts, please try again later.",
-});
-
-// Token creation function
-const createToken = (payload, secret, options) => {
-  return jwt.sign(payload, secret, options);
-};
-
-// Login middleware
-export const login = [
-  loginLimiter,
-  async (req, res, next) => {
-    try {
-      const staff = req.user; // Assuming this is set by previous middleware
-
-      if (!staff.activated) {
-        return res.status(403).json({
-          msg: `Hello ${staff.username}, you need to change your password to activate your account.`,
-          requiresPasswordChange: true,
-        });
-      }
-
-      const token = createToken(
-        {
-          uid: staff._id,
-          username: staff.username,
-          role: staff.role,
-        },
-        process.env.JWT_SECRET,
-        { expiresIn: "1h" } // Shorter expiration time
-      );
-
-      res
-        .cookie("token", token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: "lax", // Changed from 'strict' to allow cross-site requests
-          maxAge: 3600000, // 1 hour in milliseconds
-          path: "/",
-        })
-        .status(200)
-        .json({
-          msg: `You are logged in as: ${staff.role}`,
-          user: {
-            id: staff._id,
-            username: staff.username,
-            role: staff.role,
-          },
-        });
-
-      console.log(
-        `Successful login: ${staff.username} (${
-          staff.role
-        }) at ${new Date().toISOString()}`
-      );
-    } catch (error) {
-      console.error("Login error:", error);
-      res
-        .status(500)
-        .json({ msg: "An error occurred during login. Please try again." });
-      next(error);
-    }
-  },
-];
+ export const login = async (req, res, next) => {
+   try {
+      staff is coming from MW login_helper
+    const staff = req.user;
+     if (!staff.activated) {
+       res.status(426).json({
+         msg: `Hello ${staff.username}, you have to change your password on the first login to activate your account and be able to continue`,
+       });
+     } else {
+       // Generate JWT Token
+       const token = await createToken(
+         {
+           uid: staff._id,
+           username: staff.username,
+           role: staff.role,
+         },
+         process.env.JWT_SECRET,
+         { expiresIn: "10h" } // Token expiration time
+       );
+       // Set token in an HTTP-only cookie
+       res
+         .cookie("token", token, {
+           expires: new Date(Date.now() + 3_600_000 * 10),
+           httpOnly: true,
+           secure: process.env.NODE_ENV === "production", // Only set in production
+           sameSite: "strict", // Protect against CSRF
+         })
+         .status(200)         .json({ msg: `Your are logged in as :${staff.role}`, staff });
+     }
+   } catch (error) {
+     console.error("Login error:", error);
+     res
+      .status(500)
+       .json({ msg: "An error occurred during login. Please try again." });
+     next(error);
+   }
+ };
 
 export const user_logout = async (req, res, next) => {
   try {
