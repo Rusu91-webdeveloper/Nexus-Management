@@ -8,9 +8,8 @@ https://nexus-management-frontend-b7zu.onrender.com/
 
 To let you experience this project firsthand, we’ve created a special account for anyone interested.
 
-user: guest
-
-password: Guest!234
+## user: guest
+## password: Guest!234
 
  However, please note that you’ll be assigned as a staff user with limited access. Unfortunately, you won’t have admin rights. Here’s why:
 
