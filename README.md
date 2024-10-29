@@ -1,5 +1,28 @@
 # Frontend Development Guide: Management Hotel System
 
+
+
+The Hotel Management System – a powerful tool designed for our staff, helping them streamline tasks and work efficiently.
+
+https://nexus-management-frontend-b7zu.onrender.com/
+
+To let you experience this project firsthand, we’ve created a special account for anyone interested.
+
+user: guest
+
+password: Guest!234
+
+ However, please note that you’ll be assigned as a staff user with limited access. Unfortunately, you won’t have admin rights. Here’s why:
+
+
+
+🔒 Admin Access Restrictions: The admin role controls critical parts of the system, including sensitive data and settings that affect the entire database. Granting full admin rights to everyone would compromise data integrity and potentially disrupt operations.
+
+
+
+While you won’t see all admin functionalities, the staff view still showcases the core capabilities and streamlined workflow designed for daily operations. We hope it provides a glimpse into the powerful features we’ve built to support our team!
+
+
 ## Overview // some edits
 
 The document is a guide for the frontend team to develop the Management Hotel System interface. The Management Hotel System will provide an admin panel for hotel staff, including roles such as **Admin**, **Management**, and **Receptionist**. This guide outlines the necessary steps, technologies, and best practices to ensure a smooth and efficient development process.
