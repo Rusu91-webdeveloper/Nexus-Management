@@ -234,7 +234,7 @@ export const login = async (req, res, next) => {
           expires: new Date(Date.now() + 3_600_000 * 10),
           httpOnly: true,
           secure: process.env.NODE_ENV === "production", // Only set in production
-          sameSite: "strict", // Protect against CSRF
+          sameSite: "None", 
         })
         .status(200)
         .json({ msg: `Your are logged in as :${staff.role}`, staff });
