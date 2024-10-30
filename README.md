@@ -4,7 +4,7 @@
 
 The Hotel Management System – a powerful tool designed for our staff, helping them streamline tasks and work efficiently.
 
-https://nexus-management-frontend-b7zu.onrender.com/
+https://nexus-management-frontend.onrender.com
 
 To let you experience this project firsthand, we’ve created a special account for anyone interested.
 
