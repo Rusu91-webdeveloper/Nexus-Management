@@ -76,5 +76,4 @@ connect2DB();
 
 // Going Live
 
-const port = process.env.PORT || 5000;
-app.listen(port, console.log(`server is up on port: ${port} 🚀`));
+app.listen(PORT, console.log(`server is up on port: ${PORT} 🚀`));

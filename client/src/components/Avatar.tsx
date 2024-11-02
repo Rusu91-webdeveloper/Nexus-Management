@@ -49,17 +49,17 @@ const Avatar = () => {
           tabIndex={0}
           className="dropdown-content bg-gray-900 bg-opacity-90 text-white rounded-lg w-32 p-3 shadow-lg mt-2"
         >
-          <li className="hover:bg-gray-700 rounded-md transition">
+          <li className="hover:bg-gray-700 rounded-md transition px-2">
             <Link to={`/dashboard/edit-profile`} className="block py-2">
               Edit Profile
             </Link>
           </li>
-          <li className="hover:bg-gray-700 rounded-md transition">
+          <li className="hover:bg-gray-700 rounded-md transition px-2">
             <Link to={`/dashboard/profile-picture`} className="block py-2">
-              Update Profile Photo
+              Update Photo
             </Link>
           </li>
-          <li className="hover:bg-gray-700 rounded-md transition">
+          <li className="hover:bg-gray-700 rounded-md transition px-2">
             <Link onClick={handleLogout} to={`/`} className="block py-2">
               Logout
             </Link>
